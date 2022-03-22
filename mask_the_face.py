@@ -17,7 +17,7 @@ parser = argparse.ArgumentParser(
 parser.add_argument(
     "--path",
     type=str,
-    default="test.png",
+    default="dataset/",
     help="Path to either the folder containing images or the image itself",
 )
 parser.add_argument(
@@ -122,6 +122,7 @@ if is_directory:
 
     # Process files in the directory if any
     for f in tqdm(files):
+        start_time = time.clock()
         image_path = path + "/" + f
 
         write_path = path + "_masked"
@@ -194,6 +195,7 @@ if is_directory:
 
             if args.verbose:
                 print(args.code_count)
+         
 
 # Process if the path was a file
 elif is_file:
