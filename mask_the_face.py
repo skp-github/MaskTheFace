@@ -5,6 +5,8 @@
 import argparse
 import dlib
 from utils.aux_functions import *
+import time
+
 
 
 
@@ -15,7 +17,7 @@ parser = argparse.ArgumentParser(
 parser.add_argument(
     "--path",
     type=str,
-    default="",
+    default="test.png",
     help="Path to either the folder containing images or the image itself",
 )
 parser.add_argument(
@@ -57,8 +59,8 @@ parser.add_argument(
 parser.add_argument(
     "--code",
     type=str,
-    # default="cloth-masks/textures/check/check_4.jpg, cloth-#e54294, cloth-#ff0000, cloth, cloth-masks/textures/others/heart_1.png, cloth-masks/textures/fruits/pineapple.png, N95, surgical_blue, surgical_green",
-    default="",
+    default="cloth-masks/textures/check/check_4.jpg, cloth-#e54294, cloth-#ff0000, cloth, cloth-masks/textures/others/heart_1.png, cloth-masks/textures/fruits/pineapple.png, N95, surgical_blue, surgical_green",
+    #default="",
     help="Generate specific formats",
 )
 
@@ -201,9 +203,11 @@ elif is_file:
     if is_image(image_path):
         # Proceed if file is image
         # masked_images, mask, mask_binary_array, original_image
+        start_time = time.clock()
         masked_image, mask, mask_binary_array, original_image = mask_image(
             image_path, args
         )
+        print(time.clock() - start_time, "seconds")
         for i in range(len(mask)):
             w_path = write_path + "_" + mask[i] + "." + args.path.rsplit(".")[1]
             img = masked_image[i]
