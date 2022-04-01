@@ -125,7 +125,7 @@ if is_directory:
         start_time = time.clock()
         image_path = path + "/" + f
 
-        write_path = path + "_masked"
+        write_path = "/content/masked_images"
         if not os.path.isdir(write_path):
             os.makedirs(write_path)
 
@@ -144,8 +144,6 @@ if is_directory:
                     write_path
                     + "/"
                     + split_path[0]
-                    + "_"
-                    + mask[i]
                     + "."
                     + split_path[1]
                 )
@@ -211,8 +209,9 @@ elif is_file:
         )
         print(time.clock() - start_time, "seconds")
         for i in range(len(mask)):
-            w_path = write_path + "_" + mask[i] + "." + args.path.rsplit(".")[1]
+            w_path = '/content/masked_images/'+write_path.split("/")[4] + "." + args.path.rsplit(".")[1]
             img = masked_image[i]
+            print(w_path)
             cv2.imwrite(w_path, img)
 else:
     print("Path is neither a valid file or a valid directory")
